@@ -13,7 +13,7 @@
 size = Vector2(118, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odnxf"]
-size = Vector2(118, 62)
+size = Vector2(98, 42)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_knnet"]
 size = Vector2(64, 32)

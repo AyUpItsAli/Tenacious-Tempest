@@ -6,6 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_kpsex"]
 script = ExtResource("1_6qvut")
+enemy = ExtResource("2_xswcw")
 count = 3
 
 [sub_resource type="Resource" id="Resource_cp6m4"]
@@ -20,6 +21,7 @@ count = 3
 
 [sub_resource type="Resource" id="Resource_kintm"]
 script = ExtResource("1_6qvut")
+enemy = ExtResource("2_xswcw")
 count = 3
 
 [resource]
@@ -27,7 +29,7 @@ script = ExtResource("3_1t0b5")
 number = 8
 calm_duration = 50.0
 duration = 60.0
-reward = 75
+reward = 150
 left_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_cp6m4")])
 right_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_lckbo")])
 top_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_kintm")])

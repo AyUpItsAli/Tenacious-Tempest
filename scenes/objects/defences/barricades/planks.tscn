@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b522r43jarux" path="res://scenes/objects/defences/barricades/barricade_base.tscn" id="1_5077p"]
 [ext_resource type="Texture2D" uid="uid://cejoisnsnfkhn" path="res://scenes/objects/defences/barricades/textures/planks.png" id="2_t534f"]
 
-[node name="Barricade" instance=ExtResource("1_5077p")]
+[node name="Planks" instance=ExtResource("1_5077p")]
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_t534f")

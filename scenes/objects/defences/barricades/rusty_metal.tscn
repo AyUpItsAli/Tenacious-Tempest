@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b522r43jarux" path="res://scenes/objects/defences/barricades/barricade_base.tscn" id="1_3n351"]
 [ext_resource type="Texture2D" uid="uid://bjssdeg2kam7b" path="res://scenes/objects/defences/barricades/textures/rusty_metal.png" id="2_xr1qc"]
 
-[node name="BarricadeThicc" instance=ExtResource("1_3n351")]
+[node name="RustyMetal" instance=ExtResource("1_3n351")]
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_xr1qc")

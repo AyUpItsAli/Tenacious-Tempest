@@ -33,7 +33,7 @@ func get_enemies(enemy_spawns: Array[EnemySpawn]) -> Array[Enemy]:
 func spawn_enemy(i: int, enemies: Array[Enemy], spawn_line: Line2D, target: Node2D, parent: Node2D):
 	if i >= enemies.size(): return
 	if spawn_line.get_point_count() < 2: return
-	var enemy: EnemyActor = enemies[i].create_enemy()
+	var enemy: EnemyActor = enemies[i].create_actor()
 	enemy.position = get_random_spawn_pos(spawn_line)
 	enemy.target = target
 	parent.add_child(enemy)
