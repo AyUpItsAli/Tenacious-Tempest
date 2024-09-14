@@ -144,7 +144,7 @@ shape = SubResource("RectangleShape2D_mtbxf")
 
 [node name="Health" parent="." instance=ExtResource("3_0e665")]
 unique_name_in_owner = true
-max_health = 3
+max_health = 20
 
 [node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_jrwpr")]
 unique_name_in_owner = true
