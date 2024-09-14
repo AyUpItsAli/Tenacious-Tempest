@@ -56,8 +56,6 @@ var current_weather: Weather:
 				create_tween().tween_property(world.tile_map, "modulate:r", STORMY_WEATHER_LIGHT, WEATHER_CHANGE_DURATION)
 				create_tween().tween_property(world.tile_map, "modulate:g", STORMY_WEATHER_LIGHT, WEATHER_CHANGE_DURATION)
 				create_tween().tween_property(world.tile_map, "modulate:b", STORMY_WEATHER_LIGHT, WEATHER_CHANGE_DURATION)
-				if Globals.input_mode == Globals.InputMode.BUILDING:
-					Globals.toggle_building_mode()
 
 var tutorial: bool:
 	set(new_value):
@@ -78,11 +76,11 @@ func _unhandled_input(event):
 		start_hint.hide()
 		tutorial = false
 		start_game()
-	if restart_hint.visible and event.is_action_pressed("start"):
+	elif restart_hint.visible and event.is_action_pressed("start"):
 		Sounds.play("select")
 		initialise_game()
 		start_game()
-	if event.is_action_pressed("build") and current_weather == Weather.CALM:
+	if event.is_action_pressed("build"):
 		Globals.toggle_building_mode()
 
 func _on_input_mode_changed():
