@@ -1,0 +1,73 @@
+[gd_resource type="AnimationLibrary" load_steps=5 format=3 uid="uid://cbv70b8mb17r1"]
+
+[sub_resource type="Animation" id="Animation_ismnd"]
+resource_name = "down"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(9, 19), Vector2i(10, 19)]
+}
+
+[sub_resource type="Animation" id="Animation_rgcjg"]
+resource_name = "left"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(6, 19), Vector2i(7, 19)]
+}
+
+[sub_resource type="Animation" id="Animation_0t0ll"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 19), Vector2i(1, 19)]
+}
+
+[sub_resource type="Animation" id="Animation_4nev6"]
+resource_name = "up"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(3, 19), Vector2i(4, 19)]
+}
+
+[resource]
+_data = {
+"down": SubResource("Animation_ismnd"),
+"left": SubResource("Animation_rgcjg"),
+"right": SubResource("Animation_0t0ll"),
+"up": SubResource("Animation_4nev6")
+}

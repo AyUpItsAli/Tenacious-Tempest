@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://b522r43jarux"]
+
+[ext_resource type="Script" path="res://scenes/objects/defences/barricades/barricade_base.gd" id="1_0373d"]
+[ext_resource type="PackedScene" uid="uid://xf6gearbfhfn" path="res://scenes/components/health.tscn" id="3_mrn4a"]
+[ext_resource type="PackedScene" uid="uid://c3a5soigrk3rl" path="res://scenes/components/hurtbox.tscn" id="4_vtn4k"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_ss7t1"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_a5yey"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="7_ufa8w"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="8_yq6ec"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="9_c6c5i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2i05t"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxisu"]
+size = Vector2(32, 32)
+
+[node name="BarricadeBase" type="StaticBody2D" node_paths=PackedStringArray("collision_shape", "hurtbox", "state_chart")]
+collision_mask = 0
+script = ExtResource("1_0373d")
+collision_shape = NodePath("CollisionShape2D")
+hurtbox = NodePath("Hurtbox")
+state_chart = NodePath("StateChart")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+offset = Vector2(0, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_2i05t")
+
+[node name="Health" parent="." instance=ExtResource("3_mrn4a")]
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_vtn4k")]
+collision_layer = 1
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_yxisu")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("5_ss7t1")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("6_a5yey")
+initial_state = NodePath("Created")
+
+[node name="Created" type="Node" parent="StateChart/Root"]
+script = ExtResource("7_ufa8w")
+
+[node name="OnPlace" type="Node" parent="StateChart/Root/Created"]
+script = ExtResource("8_yq6ec")
+to = NodePath("../../Placed")
+event = &"place"
+delay_in_seconds = "0.0"
+
+[node name="Placed" type="Node" parent="StateChart/Root"]
+script = ExtResource("7_ufa8w")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("9_c6c5i")]
+visible = false
+offset_left = -160.0
+offset_top = -320.0
+offset_right = 175.5
+offset_bottom = -60.0
+enabled = false
+initial_node_to_watch = NodePath("..")
+
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="state_entered" from="StateChart/Root/Created" to="." method="_on_created_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Placed" to="." method="_on_placed_state_entered"]

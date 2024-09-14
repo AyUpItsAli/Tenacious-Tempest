@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Building" load_steps=3 format=3 uid="uid://buyymr7ee2kdn"]
+
+[ext_resource type="PackedScene" uid="uid://cyfaa4nt2a5ow" path="res://scenes/objects/defences/barricades/planks.tscn" id="1_vey67"]
+[ext_resource type="Script" path="res://models/building.gd" id="2_3x7w0"]
+
+[resource]
+script = ExtResource("2_3x7w0")
+scene = ExtResource("1_vey67")
+name = "Planks (5 HP)"
+cost = 1

@@ -1,0 +1,216 @@
+[gd_scene load_steps=15 format=3 uid="uid://c2b5uu3c3exs6"]
+
+[ext_resource type="Script" path="res://scenes/objects/tent/tent.gd" id="1_nfexl"]
+[ext_resource type="Texture2D" uid="uid://7au02ykdtx4s" path="res://scenes/objects/tent/textures/tent_blue.png" id="2_lekdf"]
+[ext_resource type="PackedScene" uid="uid://xf6gearbfhfn" path="res://scenes/components/health.tscn" id="3_0e665"]
+[ext_resource type="PackedScene" uid="uid://c3a5soigrk3rl" path="res://scenes/components/hurtbox.tscn" id="4_jrwpr"]
+[ext_resource type="PackedScene" uid="uid://bmdpdxeds2kkt" path="res://scenes/components/interactable_area.tscn" id="5_yog05"]
+[ext_resource type="Texture2D" uid="uid://4nnr0xin3rp7" path="res://scenes/objects/tent/textures/flame_4.png" id="6_jhq8f"]
+[ext_resource type="Texture2D" uid="uid://dykp1k0q251xi" path="res://scenes/objects/tent/textures/flame_5.png" id="7_ojjw3"]
+[ext_resource type="Texture2D" uid="uid://uh8aelisv46r" path="res://scenes/objects/tent/textures/flame_1.png" id="8_aqix0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtbxf"]
+size = Vector2(118, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odnxf"]
+size = Vector2(118, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_knnet"]
+size = Vector2(64, 32)
+
+[sub_resource type="Animation" id="Animation_cjt2q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flame1:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flame4:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flame2:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flame3:frame_coords")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ifgkj"]
+resource_name = "flicker"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flame1:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flame4:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flame2:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flame3:frame_coords")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cvw5k"]
+_data = {
+"RESET": SubResource("Animation_cjt2q"),
+"flicker": SubResource("Animation_ifgkj")
+}
+
+[node name="Tent" type="StaticBody2D" node_paths=PackedStringArray("target_points")]
+collision_mask = 0
+script = ExtResource("1_nfexl")
+target_points = NodePath("TargetPoints")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_lekdf")
+offset = Vector2(1, -62)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -31)
+shape = SubResource("RectangleShape2D_mtbxf")
+
+[node name="Health" parent="." instance=ExtResource("3_0e665")]
+unique_name_in_owner = true
+max_health = 20
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_jrwpr")]
+unique_name_in_owner = true
+collision_layer = 32
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -31)
+shape = SubResource("RectangleShape2D_odnxf")
+
+[node name="TargetPoints" type="Node2D" parent="."]
+
+[node name="TargetPoint1" type="Marker2D" parent="TargetPoints"]
+
+[node name="TargetPoint2" type="Marker2D" parent="TargetPoints"]
+position = Vector2(59, -31)
+
+[node name="TargetPoint3" type="Marker2D" parent="TargetPoints"]
+position = Vector2(-59, -31)
+
+[node name="TargetPoint4" type="Marker2D" parent="TargetPoints"]
+position = Vector2(0, -62)
+
+[node name="InteractableArea" parent="." instance=ExtResource("5_yog05")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource("RectangleShape2D_knnet")
+
+[node name="Flames" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Flame1" type="Sprite2D" parent="Flames"]
+texture_filter = 1
+position = Vector2(6, -4)
+texture = ExtResource("6_jhq8f")
+offset = Vector2(0, -16)
+hframes = 5
+
+[node name="Flame2" type="Sprite2D" parent="Flames"]
+texture_filter = 1
+position = Vector2(-34, -29)
+texture = ExtResource("8_aqix0")
+offset = Vector2(0, -16)
+hframes = 5
+
+[node name="Flame3" type="Sprite2D" parent="Flames"]
+texture_filter = 1
+position = Vector2(31, -57)
+texture = ExtResource("7_ojjw3")
+offset = Vector2(0, -16)
+flip_h = true
+hframes = 5
+
+[node name="Flame4" type="Sprite2D" parent="Flames"]
+texture_filter = 1
+position = Vector2(-19, -72)
+texture = ExtResource("7_ojjw3")
+offset = Vector2(0, -32)
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Flames"]
+libraries = {
+"": SubResource("AnimationLibrary_cvw5k")
+}
+autoplay = "flicker"
+
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

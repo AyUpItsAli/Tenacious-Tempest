@@ -1,0 +1,210 @@
+[gd_scene load_steps=21 format=3 uid="uid://di8wlru68rrr2"]
+
+[ext_resource type="Script" path="res://scenes/actors/enemies/enemy_actor.gd" id="1_6trdn"]
+[ext_resource type="Texture2D" uid="uid://27mgjxgtjwyn" path="res://scenes/actors/enemies/tornado/tornado.png" id="1_brtsl"]
+[ext_resource type="PackedScene" uid="uid://cy3mdgyvk6quc" path="res://scenes/components/context_map.tscn" id="3_uloyj"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_l3nbo"]
+[ext_resource type="PackedScene" uid="uid://x67mwrpmmx4i" path="res://scenes/components/hitbox.tscn" id="4_ndpqd"]
+[ext_resource type="PackedScene" uid="uid://xf6gearbfhfn" path="res://scenes/components/health.tscn" id="5_ms24j"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_nue4u"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_tw14f"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_u717o"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_xwuw4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eaity"]
+radius = 8.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_4wcxe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_f67qr"]
+resource_name = "spin"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0ao24"]
+_data = {
+"RESET": SubResource("Animation_4wcxe"),
+"spin": SubResource("Animation_f67qr")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gh68v"]
+radius = 42.0
+
+[sub_resource type="Curve" id="Curve_fv0bp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.502435, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.88765, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_o02ry"]
+curve = SubResource("Curve_fv0bp")
+
+[sub_resource type="Gradient" id="Gradient_icgcy"]
+colors = PackedColorArray(0.243137, 0.243137, 0.309804, 1, 0.644022, 0.701657, 0.740103, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m758c"]
+gradient = SubResource("Gradient_icgcy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hhaym"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 42.0
+emission_ring_inner_radius = 12.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 400.0
+tangential_accel_max = 600.0
+scale_min = 2.0
+scale_max = 4.0
+color_initial_ramp = SubResource("GradientTexture1D_m758c")
+alpha_curve = SubResource("CurveTexture_o02ry")
+
+[node name="Tornado" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 16
+script = ExtResource("1_6trdn")
+max_speed = 150.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.784314)
+texture_filter = 1
+texture = ExtResource("1_brtsl")
+offset = Vector2(-10, -40)
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_eaity")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_0ao24")
+}
+autoplay = "spin"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+target_desired_distance = 30.0
+avoidance_enabled = true
+
+[node name="ContextMap" parent="." instance=ExtResource("3_uloyj")]
+unique_name_in_owner = true
+position = Vector2(0, -8)
+ray_length = 50.0
+collision_mask = 5
+
+[node name="Hitbox" parent="." instance=ExtResource("4_ndpqd")]
+position = Vector2(0, -8)
+collision_mask = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_gh68v")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Hitbox"]
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_hhaym")
+lifetime = 0.3
+local_coords = true
+
+[node name="Health" parent="." instance=ExtResource("5_ms24j")]
+
+[node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_l3nbo")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("5_nue4u")
+initial_state = NodePath("Idling")
+
+[node name="Idling" type="Node" parent="StateChart/Root"]
+script = ExtResource("6_tw14f")
+
+[node name="OnTargetSpotted" type="Node" parent="StateChart/Root/Idling"]
+script = ExtResource("7_u717o")
+to = NodePath("../../Chasing")
+event = &"target_spotted"
+delay_in_seconds = "0.0"
+
+[node name="Chasing" type="Node" parent="StateChart/Root"]
+script = ExtResource("6_tw14f")
+
+[node name="OnTargetReached" type="Node" parent="StateChart/Root/Chasing"]
+script = ExtResource("7_u717o")
+to = NodePath("../../Idling")
+event = &"target_reached"
+delay_in_seconds = "0.0"
+
+[node name="OnTargetLost" type="Node" parent="StateChart/Root/Chasing"]
+script = ExtResource("7_u717o")
+to = NodePath("../../Idling")
+event = &"target_lost"
+delay_in_seconds = "0.0"
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("8_xwuw4")]
+visible = false
+offset_left = -80.0
+offset_top = -176.0
+offset_right = 255.5
+offset_bottom = 84.0
+scale = Vector2(0.5, 0.5)
+enabled = false
+initial_node_to_watch = NodePath("..")
+
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_target_reached"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_velocity_computed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="state_physics_processing" from="StateChart/Root/Idling" to="." method="_on_idling_state_physics_processing"]
+[connection signal="state_exited" from="StateChart/Root/Chasing" to="." method="_on_chasing_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Chasing" to="." method="_on_chasing_state_physics_processing"]

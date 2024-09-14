@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Building" load_steps=3 format=3 uid="uid://de1e5tymjohy5"]
+
+[ext_resource type="PackedScene" uid="uid://c382vwa7r6mpm" path="res://scenes/objects/defences/barricades/concrete.tscn" id="1_sasrb"]
+[ext_resource type="Script" path="res://models/building.gd" id="2_uun0d"]
+
+[resource]
+script = ExtResource("2_uun0d")
+scene = ExtResource("1_sasrb")
+name = "Concrete (15 HP)"
+cost = 10

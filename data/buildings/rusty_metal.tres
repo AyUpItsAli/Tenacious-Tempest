@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Building" load_steps=3 format=3 uid="uid://c0k2pwwsmf5sd"]
+
+[ext_resource type="PackedScene" uid="uid://dcwr5i28shyxi" path="res://scenes/objects/defences/barricades/rusty_metal.tscn" id="1_45umx"]
+[ext_resource type="Script" path="res://models/building.gd" id="2_mr3gd"]
+
+[resource]
+script = ExtResource("2_mr3gd")
+scene = ExtResource("1_45umx")
+name = "Rusty Metal (10 HP)"
+cost = 5

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Storm" load_steps=5 format=3 uid="uid://cdn1r7k41n6p7"]
+
+[ext_resource type="Resource" uid="uid://6goh7hmxsfgw" path="res://data/enemies/tornado.tres" id="1_k85wv"]
+[ext_resource type="Script" path="res://models/storm.gd" id="1_q2clb"]
+[ext_resource type="Script" path="res://models/enemy_spawn.gd" id="2_s4e27"]
+
+[sub_resource type="Resource" id="Resource_prt0t"]
+script = ExtResource("2_s4e27")
+enemy = ExtResource("1_k85wv")
+count = 1
+
+[resource]
+script = ExtResource("1_q2clb")
+number = 1
+calm_duration = 20.0
+duration = 30.0
+reward = 10
+left_spawns = Array[ExtResource("2_s4e27")]([SubResource("Resource_prt0t")])
+right_spawns = Array[ExtResource("2_s4e27")]([])
+top_spawns = Array[ExtResource("2_s4e27")]([])
+bottom_spawns = Array[ExtResource("2_s4e27")]([])

@@ -1,0 +1,221 @@
+[gd_scene load_steps=23 format=3 uid="uid://ccbsjrvxh2cyy"]
+
+[ext_resource type="Texture2D" uid="uid://b4jkmnwis7ey7" path="res://scenes/actors/player/textures/player.png" id="1_7xehx"]
+[ext_resource type="Script" path="res://scenes/actors/player/player_actor.gd" id="1_24ejg"]
+[ext_resource type="AnimationLibrary" uid="uid://f7y8b13lmslx" path="res://scenes/actors/animations/libraries/idle.tres" id="2_hld18"]
+[ext_resource type="AnimationLibrary" uid="uid://ccss8wwvvyxwk" path="res://scenes/actors/animations/libraries/run.tres" id="3_0dxcg"]
+[ext_resource type="AnimationLibrary" uid="uid://rk8ibhyuqhtv" path="res://scenes/actors/animations/libraries/death.tres" id="3_twjq3"]
+[ext_resource type="AnimationLibrary" uid="uid://cbv70b8mb17r1" path="res://scenes/actors/animations/libraries/hit.tres" id="3_wdy1f"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://pvwlsuao1nb4" path="res://scenes/actors/animations/state_machines/basic_actor.tres" id="4_y36ev"]
+[ext_resource type="Script" path="res://scenes/actors/player/leaf_blower.gd" id="6_ntm4v"]
+[ext_resource type="PackedScene" uid="uid://xf6gearbfhfn" path="res://scenes/components/health.tscn" id="7_11nxl"]
+[ext_resource type="PackedScene" uid="uid://c3a5soigrk3rl" path="res://scenes/components/hurtbox.tscn" id="8_usfdk"]
+[ext_resource type="Texture2D" uid="uid://fs1ig75si83h" path="res://assets/ui.png" id="9_0egpe"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="11_bsaba"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="12_nleil"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="13_crj4n"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="14_qtbwe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vqlqg"]
+radius = 8.0
+height = 28.0
+
+[sub_resource type="Animation" id="Animation_7u63x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(3, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gsa2p"]
+_data = {
+"RESET": SubResource("Animation_7u63x")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r5hta"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 8, 0)
+velocity_pivot = Vector3(-16, 0, 0)
+spread = 20.0
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 200.0
+linear_accel_max = 200.0
+scale_min = 4.0
+scale_max = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vich"]
+atlas = ExtResource("9_0egpe")
+region = Rect2(666, 330, 42, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jf33l"]
+atlas = ExtResource("9_0egpe")
+region = Rect2(674, 394, 30, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lwrlu"]
+radius = 8.0
+height = 28.0
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_layer = 32
+collision_mask = 3
+script = ExtResource("1_24ejg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_7xehx")
+offset = Vector2(0, -32)
+hframes = 56
+vframes = 20
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_vqlqg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gsa2p"),
+"death": ExtResource("3_twjq3"),
+"hit": ExtResource("3_wdy1f"),
+"idle": ExtResource("2_hld18"),
+"run": ExtResource("3_0dxcg")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+libraries = {
+"": SubResource("AnimationLibrary_gsa2p"),
+"death": ExtResource("3_twjq3"),
+"hit": ExtResource("3_wdy1f"),
+"idle": ExtResource("2_hld18"),
+"run": ExtResource("3_0dxcg")
+}
+tree_root = ExtResource("4_y36ev")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idling = false
+parameters/conditions/moving = false
+parameters/hit/blend_position = Vector2(0, 1)
+parameters/idle/blend_position = Vector2(0, 1)
+parameters/run/blend_position = Vector2(0, 1)
+
+[node name="LeafBlower" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -16)
+script = ExtResource("6_ntm4v")
+
+[node name="Hitbox" type="Area2D" parent="LeafBlower"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LeafBlower/Hitbox"]
+polygon = PackedVector2Array(320, -112, 320, 112, 0, 0)
+
+[node name="Particles" type="GPUParticles2D" parent="LeafBlower"]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(16, 0)
+emitting = false
+amount = 80
+process_material = SubResource("ParticleProcessMaterial_r5hta")
+lifetime = 0.4
+local_coords = true
+
+[node name="ChargeBar" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(0, -80)
+scale = Vector2(2, 2)
+
+[node name="Background" type="Sprite2D" parent="ChargeBar"]
+texture_filter = 1
+texture = SubResource("AtlasTexture_5vich")
+
+[node name="ChargeSprite" type="Sprite2D" parent="ChargeBar"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(-15, 0)
+texture = SubResource("AtlasTexture_jf33l")
+offset = Vector2(15, 0)
+
+[node name="Health" parent="." instance=ExtResource("7_11nxl")]
+
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health") instance=ExtResource("8_usfdk")]
+position = Vector2(0, -8)
+collision_layer = 32
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lwrlu")
+
+[node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("11_bsaba")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("12_nleil")
+initial_state = NodePath("Alive")
+
+[node name="Alive" type="Node" parent="StateChart/Root"]
+script = ExtResource("13_crj4n")
+
+[node name="OnDied" type="Node" parent="StateChart/Root/Alive"]
+script = ExtResource("14_qtbwe")
+to = NodePath("../../Dead")
+event = &"died"
+delay_in_seconds = "0.0"
+
+[node name="Dead" type="Node" parent="StateChart/Root"]
+script = ExtResource("13_crj4n")
+
+[node name="OnReset" type="Node" parent="StateChart/Root/Dead"]
+script = ExtResource("14_qtbwe")
+to = NodePath("../../Alive")
+event = &"reset"
+delay_in_seconds = "0.0"
+
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="state_physics_processing" from="StateChart/Root/Alive" to="." method="_on_alive_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Alive" to="LeafBlower" method="_on_alive_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Dead" to="." method="_on_dead_state_entered"]

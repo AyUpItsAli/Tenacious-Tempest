@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://6goh7hmxsfgw"]
+
+[ext_resource type="Script" path="res://models/enemy.gd" id="1_1pqvt"]
+[ext_resource type="PackedScene" uid="uid://di8wlru68rrr2" path="res://scenes/actors/enemies/tornado/tornado.tscn" id="1_w7s6a"]
+
+[resource]
+script = ExtResource("1_1pqvt")
+scene = ExtResource("1_w7s6a")
