@@ -7,4 +7,4 @@ script = ExtResource("1_rxouj")
 base_folder = "res://data/storms"
 includes = Array[String](["**.tres"])
 excludes = Array[String]([])
-paths = Array[String](["res://data/storms/storm_1.tres"])
+paths = Array[String](["res://data/storms/storm_1.tres", "res://data/storms/storm_2.tres", "res://data/storms/storm_3.tres", "res://data/storms/storm_4.tres", "res://data/storms/storm_5.tres", "res://data/storms/storm_6.tres", "res://data/storms/storm_7.tres", "res://data/storms/storm_8.tres"])

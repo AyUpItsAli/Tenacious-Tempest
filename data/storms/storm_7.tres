@@ -6,6 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_kpsex"]
 script = ExtResource("1_igo36")
+enemy = ExtResource("2_u7rhu")
 count = 4
 
 [sub_resource type="Resource" id="Resource_cp6m4"]
