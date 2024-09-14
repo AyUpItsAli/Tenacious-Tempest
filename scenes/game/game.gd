@@ -4,7 +4,8 @@ const PLAYER_SCENE = preload("res://scenes/actors/player/player.tscn")
 
 const STORMY_WEATHER_LIGHT = 0.65
 const WEATHER_CHANGE_DURATION = 1
-const POST_STORM_DELAY = 2
+const POST_STORM_DELAY = 2 # Seconds after a storm before starting the next calm period
+const MUSIC_DELAY = 0.5 # Seconds before playing music after starting the game
 
 @onready var timer: Timer = %Timer
 @onready var player_camera: PlayerCamera = %PlayerCamera
@@ -44,12 +45,13 @@ var current_weather: Weather:
 		current_weather = new_weather
 		match current_weather:
 			Weather.CALM:
+				Sounds.stop("rain")
 				rain.emitting = false
 				create_tween().tween_property(world.tile_map, "modulate:r", 1, WEATHER_CHANGE_DURATION)
 				create_tween().tween_property(world.tile_map, "modulate:g", 1, WEATHER_CHANGE_DURATION)
 				create_tween().tween_property(world.tile_map, "modulate:b", 1, WEATHER_CHANGE_DURATION)
-				
 			Weather.STORMY:
+				Sounds.play("rain")
 				rain.emitting = true
 				create_tween().tween_property(world.tile_map, "modulate:r", STORMY_WEATHER_LIGHT, WEATHER_CHANGE_DURATION)
 				create_tween().tween_property(world.tile_map, "modulate:g", STORMY_WEATHER_LIGHT, WEATHER_CHANGE_DURATION)
@@ -72,10 +74,12 @@ func _ready():
 
 func _unhandled_input(event):
 	if start_hint.visible and event.is_action_pressed("start"):
+		Sounds.play("select")
 		start_hint.hide()
 		tutorial = false
 		start_game()
 	if restart_hint.visible and event.is_action_pressed("start"):
+		Sounds.play("select")
 		initialise_game()
 		start_game()
 	if event.is_action_pressed("build") and current_weather == Weather.CALM:
@@ -113,6 +117,8 @@ func start_game():
 	Player.reset()
 	world.clear_placed_buildings()
 	next_storm()
+	await get_tree().create_timer(MUSIC_DELAY).timeout
+	Sounds.play("music")
 
 func clear_spawns_labels():
 	left_spawns_label.text = ""
@@ -153,6 +159,7 @@ func start_storm():
 	current_storm.spawn_enemies(world, tent)
 
 func end_storm():
+	Sounds.play("storm_end")
 	current_weather = Weather.CALM
 	timer_display.hide()
 	destroy_enemies()
@@ -177,5 +184,6 @@ func game_over():
 	restart_hint.show()
 
 func win():
+	Sounds.play("victory")
 	game_over()
 	win_hint.show()

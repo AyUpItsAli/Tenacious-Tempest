@@ -40,6 +40,7 @@ func _on_alive_state_physics_processing(_delta):
 		charge -= charge_usage
 		charge_bar.show()
 		if charge == 0:
+			Sounds.play("overheat")
 			active = false
 			overheated = true
 	elif charge < max_charge:
@@ -49,6 +50,10 @@ func _on_alive_state_physics_processing(_delta):
 			overheated = false
 	# Visuals
 	particles.emitting = active
+	if particles.emitting:
+		Sounds.play("leaf_blower")
+	else:
+		Sounds.stop("leaf_blower")
 	var texture: AtlasTexture = charge_sprite.texture
 	texture.region.position.y = RED_CHARGE_Y if overheated else YELLOW_CHARGE_Y
 

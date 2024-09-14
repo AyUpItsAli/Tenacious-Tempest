@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Storm" load_steps=8 format=3 uid="uid://bybaog1rtnwtw"]
+
+[ext_resource type="Script" path="res://models/enemy_spawn.gd" id="1_6qvut"]
+[ext_resource type="Resource" uid="uid://6goh7hmxsfgw" path="res://data/enemies/tornado.tres" id="2_xswcw"]
+[ext_resource type="Script" path="res://models/storm.gd" id="3_1t0b5"]
+
+[sub_resource type="Resource" id="Resource_kpsex"]
+script = ExtResource("1_6qvut")
+enemy = ExtResource("2_xswcw")
+count = 3
+
+[sub_resource type="Resource" id="Resource_cp6m4"]
+script = ExtResource("1_6qvut")
+enemy = ExtResource("2_xswcw")
+count = 3
+
+[sub_resource type="Resource" id="Resource_lckbo"]
+script = ExtResource("1_6qvut")
+enemy = ExtResource("2_xswcw")
+count = 3
+
+[sub_resource type="Resource" id="Resource_kintm"]
+script = ExtResource("1_6qvut")
+enemy = ExtResource("2_xswcw")
+count = 3
+
+[resource]
+script = ExtResource("3_1t0b5")
+number = 8
+calm_duration = 50.0
+duration = 60.0
+reward = 150
+left_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_cp6m4")])
+right_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_lckbo")])
+top_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_kintm")])
+bottom_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_kpsex")])

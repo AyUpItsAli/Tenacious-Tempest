@@ -33,6 +33,7 @@ func set_facing(direction: Vector2) -> void:
 	animation_tree["parameters/hit/blend_position"] = direction
 
 func _on_hurtbox_hit():
+	Sounds.play("hurt")
 	animation_state_machine.travel("hit")
 
 func _on_health_depleted():
@@ -40,4 +41,5 @@ func _on_health_depleted():
 	died.emit()
 
 func _on_dead_state_entered():
+	Sounds.play("player_death")
 	animation_state_machine.travel("death") # Calls queue_free() at end of animation

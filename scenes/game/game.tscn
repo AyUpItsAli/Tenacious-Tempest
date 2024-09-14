@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2a255kxf5vha"]
+[gd_scene load_steps=17 format=3 uid="uid://c2a255kxf5vha"]
 
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_pcgja"]
 [ext_resource type="Script" path="res://scenes/game/world.gd" id="2_61y2l"]
@@ -41,6 +41,10 @@ font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_tfnhp"]
 font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_sp3b5"]
+font_size = 20
+outline_size = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_ltwga"]
 font_size = 32
@@ -238,6 +242,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 text = "You protected your camp from all the storms!"
+label_settings = SubResource("LabelSettings_sp3b5")
 horizontal_alignment = 1
 
 [node name="StartHint" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer/Hints"]

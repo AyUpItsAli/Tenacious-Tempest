@@ -12,8 +12,8 @@ count = 1
 [resource]
 script = ExtResource("1_q2clb")
 number = 1
-calm_duration = 20.0
-duration = 30.0
+calm_duration = 5.0
+duration = 5.0
 reward = 50
 left_spawns = Array[ExtResource("2_s4e27")]([SubResource("Resource_prt0t")])
 right_spawns = Array[ExtResource("2_s4e27")]([])

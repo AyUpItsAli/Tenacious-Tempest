@@ -68,13 +68,15 @@ func _process(_delta):
 	if Input.is_action_pressed("place_building") and selected_building:
 		if not can_place_building(selected_building, tile_pos): return
 		if Player.spend_money(selected_building.cost):
+			Sounds.play("place_building", true)
 			place_building(selected_building, tile_pos)
 		else:
 			mouse_label_2.modulate = Color.RED
 			await get_tree().create_timer(0.1).timeout
 			mouse_label_2.modulate = Color.WHITE
 	elif Input.is_action_pressed("remove_building"):
-		remove_building_object_if_present(tile_pos)
+		if remove_building_object(tile_pos):
+			Sounds.play("remove_building", true)
 
 func can_place_building(building: Building, tile_pos: Vector2i) -> bool:
 	if tile_map.get_cell_source_id(dirt_layer, tile_pos) != -1: return false
@@ -83,7 +85,7 @@ func can_place_building(building: Building, tile_pos: Vector2i) -> bool:
 	return existing_object.building != building
 
 func place_building(building: Building, tile_pos: Vector2i):
-	remove_building_object_if_present(tile_pos)
+	remove_building_object(tile_pos)
 	var building_object: PlaceableBuildingObject = building.create_object()
 	building_object.position = tile_map.map_to_local(tile_pos)
 	building_object.created.connect(_on_building_created.bind(building_object))
@@ -92,11 +94,12 @@ func place_building(building: Building, tile_pos: Vector2i):
 	tile_map.set_cell(decorations_layer, tile_pos, -1)
 	placed_buildings[tile_pos] = building_object
 
-func remove_building_object_if_present(tile_pos: Vector2i):
-	if not placed_buildings.has(tile_pos): return
+func remove_building_object(tile_pos: Vector2i) -> bool:
+	if not placed_buildings.has(tile_pos): return false
 	var existing_object: PlaceableBuildingObject = placed_buildings[tile_pos]
 	existing_object.destroy()
 	Player.gain_money(existing_object.building.cost)
+	return true
 
 func _on_building_created(building_object: PlaceableBuildingObject):
 	if building_object.state_chart:

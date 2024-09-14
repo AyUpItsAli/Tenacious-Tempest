@@ -14,10 +14,12 @@ func reset():
 	flames.hide()
 
 func _on_hurtbox_hit():
+	Sounds.play("hurt")
 	modulate = Color.RED
 	await get_tree().create_timer(0.1).timeout
 	modulate = Color.WHITE
 
 func _on_health_depleted():
+	Sounds.play("tent_destroyed")
 	flames.show()
 	destroyed.emit()
