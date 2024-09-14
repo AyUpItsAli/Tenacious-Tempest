@@ -64,7 +64,7 @@ volume_db = 3.0
 
 [node name="select" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_41adq")
-volume_db = 6.0
+volume_db = 7.0
 
 [node name="victory" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_ufgcf")
