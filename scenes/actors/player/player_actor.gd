@@ -33,7 +33,7 @@ func set_facing(direction: Vector2) -> void:
 	animation_tree["parameters/hit/blend_position"] = direction
 
 func _on_hurtbox_hit():
-	Sounds.play("hurt")
+	Sounds.play("player_hurt")
 	animation_state_machine.travel("hit")
 
 func _on_health_depleted():

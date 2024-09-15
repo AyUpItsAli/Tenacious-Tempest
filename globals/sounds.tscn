@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://ch3dm31fgm3k0"]
+[gd_scene load_steps=16 format=3 uid="uid://ch3dm31fgm3k0"]
 
 [ext_resource type="Script" path="res://globals/sounds.gd" id="1_480au"]
 [ext_resource type="AudioStream" uid="uid://ba55hre4hd2rh" path="res://sounds/good_and_evil.mp3" id="2_72cef"]
 [ext_resource type="AudioStream" uid="uid://covk7e11ohmfl" path="res://sounds/rain.mp3" id="3_lus6v"]
-[ext_resource type="AudioStream" uid="uid://cddbqf0kvtfyn" path="res://sounds/tent_destroyed.wav" id="3_pkdl6"]
 [ext_resource type="AudioStream" uid="uid://cuyoos5gu4ska" path="res://sounds/building_destroyed.wav" id="3_wchyg"]
-[ext_resource type="AudioStream" uid="uid://cpwygr5h2ou8q" path="res://sounds/hurt.wav" id="5_o5bg2"]
-[ext_resource type="AudioStream" uid="uid://bhdbrcxcdg34j" path="res://sounds/player_death.wav" id="6_co7tu"]
+[ext_resource type="AudioStream" uid="uid://cpwygr5h2ou8q" path="res://sounds/building_hurt.wav" id="5_o5bg2"]
+[ext_resource type="AudioStream" uid="uid://bbu7m6jbfye5j" path="res://sounds/tent_destroyed.wav" id="6_puiqj"]
+[ext_resource type="AudioStream" uid="uid://ce1j8k6srql2y" path="res://sounds/player_hurt.wav" id="7_a1jsf"]
+[ext_resource type="AudioStream" uid="uid://npa3ad2rhjdr" path="res://sounds/player_death.mp3" id="7_u67mk"]
 [ext_resource type="AudioStream" uid="uid://bjfgjxt5sxnnp" path="res://sounds/overheat.wav" id="9_i0nxi"]
 [ext_resource type="AudioStream" uid="uid://c4oadcgjuk4c4" path="res://sounds/leaf_blower.mp3" id="10_8qxe6"]
 [ext_resource type="AudioStream" uid="uid://cj7pafusm3igi" path="res://sounds/storm_end.wav" id="10_h2o12"]
@@ -18,29 +19,17 @@
 [node name="Sounds" type="Node"]
 script = ExtResource("1_480au")
 
+[node name="building_destroyed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wchyg")
+volume_db = -3.0
+
+[node name="building_hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_o5bg2")
+volume_db = 3.0
+
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_72cef")
 volume_db = 7.0
-
-[node name="rain" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_lus6v")
-volume_db = -8.0
-
-[node name="building_destroyed" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_wchyg")
-volume_db = -4.0
-
-[node name="tent_destroyed" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_pkdl6")
-volume_db = 2.0
-
-[node name="hurt" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_o5bg2")
-volume_db = 2.0
-
-[node name="player_death" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_co7tu")
-volume_db = 2.0
 
 [node name="leaf_blower" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_8qxe6")
@@ -50,21 +39,37 @@ volume_db = -1.0
 stream = ExtResource("9_i0nxi")
 volume_db = 3.0
 
-[node name="storm_end" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_h2o12")
-volume_db = 7.0
-
 [node name="place_building" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_pf5bb")
+volume_db = 4.0
+
+[node name="player_death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_u67mk")
+volume_db = 6.0
+
+[node name="player_hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_a1jsf")
 volume_db = 3.0
+
+[node name="rain" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_lus6v")
+volume_db = -7.0
 
 [node name="remove_building" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_pv7ng")
-volume_db = 3.0
+volume_db = 4.0
 
 [node name="select" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_41adq")
 volume_db = 7.0
+
+[node name="storm_end" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_h2o12")
+volume_db = 7.0
+
+[node name="tent_destroyed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_puiqj")
+volume_db = 3.0
 
 [node name="victory" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_ufgcf")

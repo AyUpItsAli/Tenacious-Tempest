@@ -14,7 +14,7 @@ func reset():
 	flames.hide()
 
 func _on_hurtbox_hit():
-	Sounds.play("hurt")
+	Sounds.play("building_hurt")
 	modulate = Color.RED
 	await get_tree().create_timer(0.1).timeout
 	modulate = Color.WHITE
