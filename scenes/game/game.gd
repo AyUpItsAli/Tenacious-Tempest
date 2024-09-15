@@ -21,6 +21,7 @@ const MUSIC_DELAY = 0.5 # Seconds before playing music after starting the game
 # Hints
 @onready var tutorial_hint: Label = %TutorialHint
 @onready var building_hint: Label = %BuildingHint
+@onready var destroy_hint: Label = %DestroyHint
 @onready var win_hint: Label = %WinHint
 @onready var start_hint: Label = %StartHint
 @onready var restart_hint: Label = %RestartHint
@@ -61,6 +62,7 @@ var tutorial: bool:
 	set(new_value):
 		tutorial = new_value
 		tutorial_hint.visible = tutorial
+		destroy_hint.visible = false
 var player: PlayerActor
 
 func _ready():
@@ -87,6 +89,7 @@ func _on_input_mode_changed():
 	building_hint.visible = Globals.input_mode == Globals.InputMode.BUILDING
 	if tutorial:
 		tutorial_hint.visible = not building_hint.visible
+		destroy_hint.visible = building_hint.visible
 
 func _on_money_changed():
 	money_label.text = "%sg" % Player.money
