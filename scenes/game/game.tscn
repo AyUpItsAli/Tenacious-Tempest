@@ -226,7 +226,7 @@ theme_override_constants/separation = 20
 unique_name_in_owner = true
 layout_mode = 2
 text = "Use WASD to move around
-Hold LMB to activate your leaf blower
+Hold Left Mouse to activate your leaf blower
 Press Q to toggle build mode"
 horizontal_alignment = 1
 
@@ -234,8 +234,8 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 text = "Scroll to select a building
-Press / Hold LMB to place buildings
-Press / Hold RMB to remove buildings"
+Press / Hold Left Mouse to place buildings
+Press / Hold Right Mouse to remove buildings"
 horizontal_alignment = 1
 
 [node name="WinHint" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer/Hints"]
@@ -248,13 +248,13 @@ horizontal_alignment = 1
 [node name="StartHint" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer/Hints"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Press SPACE to begin"
+text = "Press Space to begin"
 horizontal_alignment = 1
 
 [node name="RestartHint" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer/Hints"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Press SPACE to restart"
+text = "Press Space to restart"
 horizontal_alignment = 1
 
 [node name="MoneyLabel" type="Label" parent="HUD/MarginContainer/HBoxContainer/CenterContainer"]

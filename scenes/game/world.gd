@@ -15,6 +15,8 @@ var buildings: Array[Building]
 var selected_index: int:
 	set(new_index):
 		selected_index = min(max(new_index, 0), buildings.size()-1)
+		if selected_index == new_index:
+			Sounds.play("place_building", true)
 		update_selected_building()
 var selected_building: Building:
 	set(new_building):
