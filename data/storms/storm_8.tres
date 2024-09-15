@@ -27,7 +27,7 @@ count = 3
 [resource]
 script = ExtResource("3_1t0b5")
 number = 8
-calm_duration = 50.0
+calm_duration = 30.0
 duration = 60.0
 reward = 150
 left_spawns = Array[ExtResource("1_6qvut")]([SubResource("Resource_cp6m4")])
